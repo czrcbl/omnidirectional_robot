@@ -33,6 +33,7 @@ class RobotCom:
                 parameter[3] += num_map[i]
             if np.abs(u) > 255:
                 u = 255
+            #TODO: why this & 0xFF
             parameter[i] = int(u) & 0xFF
             # parameter[i] = int(u)
 
@@ -81,8 +82,8 @@ class RobotCom:
         return 0xFF - (sum_ & 0x00FF)
 
     def receive_message(self):
+        # TODO: check the exact number of bytes, 47 is a magic number
         n_bytes = 47
-        # TODO: check this /\
         try:
             mess = self.serial.read(n_bytes)
         except Exception as e:
