@@ -4,7 +4,7 @@ import numpy as np
 
 try:
     com = RobotCom()
-    print('Port Openned:', ser.name)
+    print('Port Openned:')
 except Exception as e:
     print(e)
 
