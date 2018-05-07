@@ -91,7 +91,7 @@ class RobotCom:
 
         # Flush the remaining bytes, so next read will start from the beginning
         # of next message
-        ser.flushInput()
+        self.serial.flushInput()
         data = self.parse_message(mess)
 
         return data
@@ -107,8 +107,8 @@ class RobotCom:
 
         # Flush the remaining bytes, so next read will start from the beginning
         # of next message
-        ser.flushInput()
-        data = parse_message(mess)
+        self.serial.flushInput()
+        data = self.parse_message(mess)
 
         return data, mess
 
@@ -156,7 +156,7 @@ class RobotCom:
         """Control signal is a 3-element numpy array"""
         parameter = self.control_to_parameter(control_signal)
         message = self.make_message(2, parameter)
-        self.send_command(message, ser)
+        self.send_command(message)
 
     def init_serial(self):
         """The robot starts to send the data once it receives this message."""
@@ -181,7 +181,7 @@ if __name__ == '__main__':
         tac = time.time()
         print('delay', tac - tic)
         tic = tac
-        data = com.recv_message()
+        data = com.receive_message()
         print(data.m1_vel)
         print(data.m2_vel)
         print(data.m3_vel)
