@@ -24,7 +24,7 @@ class RobotCom:
         parameter = bytearray(4)
         num_map = (1, 2, 4)
         # new_control = 255 - (255/6.0) * (6 - control_vector)
-        new_control = 255/6.0 * control_vector
+        new_control = 255 / 6.0 * control_vector
 
         for i in range(len(new_control)):
             u = new_control[i]
@@ -33,7 +33,7 @@ class RobotCom:
                 parameter[3] += num_map[i]
             if np.abs(u) > 255:
                 u = 255
-            #TODO: why this & 0xFF
+            # TODO: why this & 0xFF
             parameter[i] = int(u) & 0xFF
             # parameter[i] = int(u)
 
@@ -52,7 +52,7 @@ class RobotCom:
         buff[4] = 0x00
 
         for i in range(0, 16, 2):
-            buff[5 + int(i/2)] = int(address[i:i+2], 16)
+            buff[5 + int(i / 2)] = int(address[i:i + 2], 16)
 
         buff[13] = 0xFF
         buff[14] = 0xFE
@@ -119,19 +119,19 @@ class RobotCom:
         buff = bytearray(message)
 
         # The vel is on rpm * 10
-        vel = (buff[16]*256 + buff[17])/600.0 * 2 * np.pi
+        vel = (buff[16] * 256 + buff[17]) / 600.0 * 2 * np.pi
         if (0x01 & buff[36]) == 1:
             data.m1_vel = vel
         else:
             data.m1_vel = -vel
         # data.m1_vel = (-1)**int(not (0x01 & buff[36])) * vel
-        vel = (buff[18]*256 + buff[19])/600.0 * 2 * np.pi
+        vel = (buff[18] * 256 + buff[19]) / 600.0 * 2 * np.pi
         if (0x02 & buff[36]) == 2:
             data.m2_vel = vel
         else:
             data.m2_vel = -vel
         # data.m2_vel = (-1)**int(not (0x02 & buff[36])) * vel
-        vel = (buff[20]*256 + buff[21])/600.0 * 2 * np.pi
+        vel = (buff[20] * 256 + buff[21]) / 600.0 * 2 * np.pi
         if (0x04 & buff[36]) == 4:
             data.m3_vel = vel
         else:
