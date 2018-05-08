@@ -1,6 +1,6 @@
 import numpy as np
+import os
 from scipy.io import loadmat
-import matplotlib
 import matplotlib.pyplot as plt
 from utils import load_8_traj
 
@@ -43,11 +43,16 @@ def triple_plot2(data1, data2, title1, title2):
     plt.grid(True)
 
 
+def get_recent():
+    files = os.listdir('data')
+    files.sort()
+    return os.path.join('data', files[-1])
+
+
 if __name__ == '__main__':
 
-    # file_name = 'data/2017-10-06-18-21-03_controller3_sim.mat'
-    # file_name = 'data/2017-11-21-19-24-30_controller3_sim.mat'
-    file_name = 'data/2017-11-21-19-28-00_controller3_sim.mat'
+    file_name = get_recent()
+    # file_name = 'data/2018-05-08-16-14-59_controller2_sim.mat'
 
     data = loadmat(file_name)
     control = data['control_signal']

@@ -20,8 +20,8 @@ def make_ref(ref, N):
 
 
 def make_inv_ref(ref1, ref2,  N):
-    a = np.tile(ref1, (N/2, 1))
-    b = np.tile(ref2, (N/2, 1))
+    a = np.tile(ref1, (int(N/2), 1))
+    b = np.tile(ref2, (int(N/2), 1))
 
     return np.vstack((a, b))
 

@@ -1,5 +1,4 @@
 import numpy as np
-import serial
 import os
 import time
 from serial_com import RobotCom
@@ -16,9 +15,9 @@ def wheel2states(wheel_vel):
     r = 0.0505
     b = 0.1
 
-    TM = np.array([[0, np.sqrt(3)*r/3, -np.sqrt(3)*r/3],
-                   [-2*r/3, r/3, r/3],
-                   [r/(3*b), r/(3*b), r/(3*b)]])
+    TM = np.array([[0, np.sqrt(3) * r / 3.0, -np.sqrt(3) * r / 3.0],
+                   [-2.0 * r / 3.0, r / 3.0, r / 3.0],
+                   [r / (3.0 * b), r / (3.0 * b), r / (3.0 * b)]])
     states = TM.dot(wheel_vel)
 
     return states
@@ -27,28 +26,28 @@ def wheel2states(wheel_vel):
 def main():
     global com
 
-    Ts = 0.05
+    Ts = 0.06
     time.sleep(5)
-    controller = 'controller3'
+    controller = 'controller1'
 
     is_ref = False
     if is_ref:
-        reference = make_ref([0.6, 0.0, 0], 100)
+        # reference = make_ref([0.6, 0.0, 0], 100)
         # reference = make_ref([0.0, 0.6, 0], 40)
         # reference = make_ref([0.0, 0.0, 2], 40)
         # reference = make_S_traj()
         # reference = make_quad_traj()
-        # reference = make_inv_ref([0.6, 0.0, 0], [-0.6, 0.0, 0], 100)
+        reference = make_inv_ref([0.6, 0.0, 0], [-0.6, 0.0, 0], 100)
     else:
         # traj = Traj(load_square_traj(), 0.6)
         # traj = Traj(load_square_traj2(), 0.6)
-        # traj = Traj(load_square_traj2(), 0.3)
+        traj = Traj(load_square_traj2(), 0.3)
         # traj = Traj(load_8_traj2(), 0.6)
         # traj = Traj(load_8_traj2(), 0.4)
         # traj = Traj(load_8_traj2(), 0.3)
         # traj = Traj(load_square_traj(), 0.3)
 
-        traj = Traj(load_circle_J_traj(), 0.3)
+        # traj = Traj(load_circle_J_traj(), 0.3)
 
     # Init Serial
     try:
@@ -125,4 +124,6 @@ if __name__ == '__main__':
         main()
     except Exception as e:
         print(e)
-        # com.send_control_signal(np.array([0, 0, 0]))
+        com.send_control_signal(np.array([0, 0, 0]))
+        raise e
+

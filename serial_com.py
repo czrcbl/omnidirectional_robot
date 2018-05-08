@@ -113,6 +113,7 @@ class RobotCom:
         return data, mess
 
     def parse_message(self, message):
+        """Parse the raw message received from the robot"""
 
         data = RecvData()
         buff = bytearray(message)
