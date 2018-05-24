@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import time
+import config as cfg
 from serial_com import RobotCom
 from simulation import SimulationAdapter
 from utils import (DataLogger, update_pose, load_square_traj, Traj,
@@ -12,8 +13,8 @@ from utils import (DataLogger, update_pose, load_square_traj, Traj,
 def wheel2states(wheel_vel):
     """Convert an array of wheel speeds (rad/s) to the defined states"""
     wheel_vel = wheel_vel.reshape(3, 1)
-    r = 0.0505
-    b = 0.1
+    r = cfg.r
+    b = cfg.b
 
     TM = np.array([[0, np.sqrt(3) * r / 3.0, -np.sqrt(3) * r / 3.0],
                    [-2.0 * r / 3.0, r / 3.0, r / 3.0],
@@ -29,6 +30,7 @@ def main():
     Ts = 0.06
     time.sleep(5)
     controller = 'controller1'
+    verbose = False
 
     is_ref = False
     if is_ref:
@@ -59,7 +61,7 @@ def main():
         com = SimulationAdapter('sys_data.mat', Ts)
 
     # Init Variables
-    K = load_controler(os.path.join('controllers', controller + '.mat'))
+    K = load_controler(os.path.join('controllers', controller + '.mat'), pprint=True)
     aug_states_old = np.zeros(shape=(6, 1))
     aug_states = np.zeros(shape=(6, 1))
     control_signal = np.zeros(shape=(3, 1))
@@ -75,15 +77,10 @@ def main():
 
         data = com.receive_message()
         wheels_vel = np.array([data.m1_vel, data.m2_vel, data.m3_vel])
-        print('wheels_vel', wheels_vel)
 
         tic = time.time()
-
         states = wheel2states(wheels_vel)
-        print('States', states)
-
         pose = update_pose(states, pose_old, Ts)
-        print('pose', pose)
 
         if is_ref:
             try:
@@ -100,7 +97,12 @@ def main():
         aug_states[3:] = aug_states_old[3:] + aug_states_old[:3]
 
         control_signal = K.dot(aug_states)
-        print('Control Signal:', control_signal)
+
+        if verbose:
+            print('wheels_vel', wheels_vel)
+            print('States', states)
+            print('pose', pose)
+            print('Control Signal:', control_signal)
 
         print('delay', time.time() - tic)
 

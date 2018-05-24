@@ -2,6 +2,7 @@ from scipy.integrate import odeint
 from scipy.io import loadmat
 import numpy as np
 from serial_com import RecvData
+import config as cfg
 
 
 class SimulationAdapter:
@@ -62,8 +63,8 @@ class Simulation:
         y0 = y1[1, :]
         self.y0 = y0
 
-        b = 0.1
-        r = 0.0505
+        b = cfg.b
+        r = cfg.r
         M = np.array([[0, -1, b],
                       [np.sqrt(3)/2, 1/2, b],
                       [-np.sqrt(3)/2, 1/2, b]])/r

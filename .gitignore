@@ -1,5 +1,5 @@
 # Added by me
-data/*
+results/*
 .vscode/*
 
 # Created by https://www.gitignore.io/api/python

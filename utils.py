@@ -2,6 +2,7 @@ import time
 from scipy.io import loadmat, savemat
 import numpy as np
 import os
+import config as cfg
 
 
 def now():
@@ -11,8 +12,12 @@ def now():
     return time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
 
 
-def load_controler(file_path):
-    return loadmat(file_path)['K']
+def load_controler(file_path, pprint=False):
+    controller = loadmat(file_path)
+    if pprint:
+        print('Controller Loaded:')
+        print(controller)
+    return controller['K']
 
 
 def make_ref(ref, N):
@@ -28,7 +33,7 @@ def make_inv_ref(ref1, ref2,  N):
 
 class DataLogger:
 
-    def __init__(self, data_folder='data'):
+    def __init__(self, data_folder=cfg.results_folder):
         N = 5000
         self.control_signal_vec = np.empty(shape=(N, 3))
         self.states_vec = np.empty(shape=(N, 3))

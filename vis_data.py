@@ -3,6 +3,7 @@ import os
 from scipy.io import loadmat
 import matplotlib.pyplot as plt
 from utils import load_8_traj
+import config as cfg
 
 
 def triple_plot(data, title):
@@ -44,9 +45,10 @@ def triple_plot2(data1, data2, title1, title2):
 
 
 def get_recent():
-    files = os.listdir('data')
+    results_folder = cfg.results_folder
+    files = os.listdir(results_folder)
     files.sort()
-    return os.path.join('data', files[-1])
+    return os.path.join(results_folder, files[-1])
 
 
 if __name__ == '__main__':
