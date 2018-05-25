@@ -60,10 +60,10 @@ def main():
     except Exception as e:
         print(e)
         suffix = controller + '_sim'
-        com = SimulationAdapter(os.path.join(cfg.data_folder, 'sys_data.mat'), Ts)
+        com = SimulationAdapter(cfg.state_space_filepath, Ts)
 
     # Init Variables
-    K = load_controler(os.path.join('controllers', controller + '.mat'), pprint=True)
+    K = load_controler(os.path.join(cfg.controllers_folder, controller + '.mat'), pprint=True)
     aug_states_old = np.zeros(shape=(6, 1))
     aug_states = np.zeros(shape=(6, 1))
     control_signal = np.zeros(shape=(3, 1))
