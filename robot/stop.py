@@ -1,4 +1,4 @@
-from serial_com import RobotCom
+from robot.serial_com import RobotCom
 import numpy as np
 
 

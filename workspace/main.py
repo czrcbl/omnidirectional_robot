@@ -1,10 +1,12 @@
 import numpy as np
 import os
 import time
-import config as cfg
-from serial_com import RobotCom
-from simulation import SimulationAdapter
-from utils import (DataLogger, update_pose, load_square_traj, Traj,
+import robot.config as cfg
+from robot.serial_com import RobotCom
+from robot.simulation import SimulationAdapter
+import robot.config as cfg
+from robot.vis_data import vis_experiment
+from robot.utils import (DataLogger, update_pose, load_square_traj, Traj,
                    make_S_traj, make_quad_traj, load_square_traj2, load_8_traj,
                    load_8_traj2, load_controler, make_ref, make_inv_ref,
                    load_circle_J_traj)
@@ -58,7 +60,7 @@ def main():
     except Exception as e:
         print(e)
         suffix = controller + '_sim'
-        com = SimulationAdapter('sys_data.mat', Ts)
+        com = SimulationAdapter(os.path.join(cfg.data_folder, 'sys_data.mat'), Ts)
 
     # Init Variables
     K = load_controler(os.path.join('controllers', controller + '.mat'), pprint=True)
@@ -120,12 +122,15 @@ def main():
     com.send_control_signal(np.array([0, 0, 0]))
     logger.close(suffix)
 
+    print('Visualizing data:')
+    vis_experiment()
+
 
 if __name__ == '__main__':
     try:
         main()
     except Exception as e:
         print(e)
-        com.send_control_signal(np.array([0, 0, 0]))
+        # com.send_control_signal(np.array([0, 0, 0]))
         raise e
 

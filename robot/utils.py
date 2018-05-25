@@ -2,7 +2,7 @@ import time
 from scipy.io import loadmat, savemat
 import numpy as np
 import os
-import config as cfg
+import robot.config as cfg
 
 
 def now():

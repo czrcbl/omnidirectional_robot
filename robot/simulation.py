@@ -1,8 +1,8 @@
 from scipy.integrate import odeint
 from scipy.io import loadmat
 import numpy as np
-from serial_com import RecvData
-import config as cfg
+from robot.serial_com import RecvData
+import robot.config as cfg
 
 
 class SimulationAdapter:

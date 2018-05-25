@@ -1,9 +1,8 @@
 import numpy as np
 import os
-from scipy.io import loadmat
 import matplotlib.pyplot as plt
-from utils import load_8_traj
-import config as cfg
+import robot.config as cfg
+from scipy.io import loadmat
 
 
 def triple_plot(data, title):
@@ -50,11 +49,9 @@ def get_recent():
     files.sort()
     return os.path.join(results_folder, files[-1])
 
-
-if __name__ == '__main__':
-
-    file_name = get_recent()
-    # file_name = 'data/2018-05-08-16-14-59_controller2_sim.mat'
+def vis_experiment(file_name=None):
+    if file_name is None:
+        file_name = get_recent()
 
     data = loadmat(file_name)
     control = data['control_signal']
@@ -76,3 +73,7 @@ if __name__ == '__main__':
     plt.grid(True)
 
     plt.show()
+
+
+if __name__ == '__main__':
+    vis_experiment()
