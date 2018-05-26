@@ -168,27 +168,7 @@ class RobotCom:
 
 if __name__ == '__main__':
 
-    try:
-        com = RobotCom()
-        print('Port Openned:', com.serial.name)
-    except Exception as e:
-        print(e)
-
-    # Test Sampling Time
-    com.init_serial()
-    control_signal = np.array([1, 1, 1])
-    tic = 0
-    for n in range(100):
-        tac = time.time()
-        print('delay', tac - tic)
-        tic = tac
-        data = com.receive_message()
-        print(data.m1_vel)
-        print(data.m2_vel)
-        print(data.m3_vel)
-        com.send_control_signal(control_signal)
-
-    control_signal = np.array([0, 0, 0])
+    pass
 
     # Test: Ramp
     # init_serial(ser)

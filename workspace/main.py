@@ -29,7 +29,7 @@ def wheel2states(wheel_vel):
 def main():
     global com
 
-    Ts = 0.06
+    Ts = cfg.Ts
     time.sleep(5)
     controller = 'controller1'
     verbose = False
@@ -133,4 +133,3 @@ if __name__ == '__main__':
         print(e)
         # com.send_control_signal(np.array([0, 0, 0]))
         raise e
-
