@@ -12,6 +12,20 @@ def now():
     return time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
 
 
+def wheel2states(wheel_vel):
+    """Convert an array of wheel speeds (rad/s) to the defined states"""
+    wheel_vel = wheel_vel.reshape(3, 1)
+    r = cfg.r
+    b = cfg.b
+
+    TM = np.array([[0, np.sqrt(3) * r / 3.0, -np.sqrt(3) * r / 3.0],
+                   [-2.0 * r / 3.0, r / 3.0, r / 3.0],
+                   [r / (3.0 * b), r / (3.0 * b), r / (3.0 * b)]])
+    states = TM.dot(wheel_vel)
+
+    return states
+
+
 def load_controler(file_path, pprint=False):
     controller = loadmat(file_path)
     if pprint:

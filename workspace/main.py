@@ -9,21 +9,7 @@ from robot.vis_data import vis_experiment
 from robot.utils import (DataLogger, update_pose, load_square_traj, Traj,
                    make_S_traj, make_quad_traj, load_square_traj2, load_8_traj,
                    load_8_traj2, load_controler, make_ref, make_inv_ref,
-                   load_circle_J_traj)
-
-
-def wheel2states(wheel_vel):
-    """Convert an array of wheel speeds (rad/s) to the defined states"""
-    wheel_vel = wheel_vel.reshape(3, 1)
-    r = cfg.r
-    b = cfg.b
-
-    TM = np.array([[0, np.sqrt(3) * r / 3.0, -np.sqrt(3) * r / 3.0],
-                   [-2.0 * r / 3.0, r / 3.0, r / 3.0],
-                   [r / (3.0 * b), r / (3.0 * b), r / (3.0 * b)]])
-    states = TM.dot(wheel_vel)
-
-    return states
+                   load_circle_J_traj, wheel2states)
 
 
 def main():

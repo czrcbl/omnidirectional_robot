@@ -1,4 +1,5 @@
 from robot.serial_com import RobotCom
+from robot.utils import wheel2states
 import numpy as np
 from scipy.io import savemat
 import serial
@@ -37,9 +38,56 @@ def test_sampling_time():
     control_signal = np.array([0, 0, 0])
 
 
+def test_movement(control_signal):
+
+    try:
+        com = RobotCom()
+        print('Port Openned:', com.serial.name)
+    except Exception as e:
+        print(e)
+
+    com.init_serial()
+    N = 100 # Number of samples
+    for _ in range(N):
+        data = com.receive_message()
+        vel = np.array([data.m1_vel, data.m2_vel, data.m3_vel])
+        print('wheel', vel)
+        states = wheel2states(vel)
+        print('States', states)
+        com.send_control_signal(control_signal)
+
+def test_frontal_movement():
+
+    control_signal = np.array([0, 2, -2])
+    print('Testing frontal movement.')
+    test_movement(control_signal)
+
+
+def test_normal_movement():
+
+    control_signal = np.array([-2, 1, 1])
+    print('Testing normal movement.')
+    test_movement(control_signal)
+
+
+def test_angular_movement():
+
+    control_signal = np.array([1, 1, 1])
+    print('Testing angular movement.')
+    test_movement(control_signal)
+
+
+
 if __name__ == '__main__':
 
     test_sampling_time()
+
+    test_frontal_movement()
+
+    test_normal_movement()
+
+    test_angular_movement()
+
 
 
 # N = 20
