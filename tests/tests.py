@@ -3,6 +3,7 @@ import numpy as np
 from scipy.io import savemat
 import serial
 import robot.config as cfg
+import time
 
 
 def test_sampling_time():
