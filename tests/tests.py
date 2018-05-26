@@ -5,7 +5,7 @@ import serial
 import robot.config as cfg
 
 
-def test_sampling_time()
+def test_sampling_time():
 
     Ts = cfg.Ts
     try:
