@@ -13,7 +13,6 @@ from robot.utils import (DataLogger, update_pose, load_square_traj, Traj,
 
 
 def main():
-    global com
 
     Ts = cfg.Ts
     time.sleep(5)
@@ -105,7 +104,7 @@ def main():
         pose_old = pose
         i += 1
 
-    com.send_control_signal(np.array([0, 0, 0]))
+    com.stop_motors()
     logger.close(suffix)
 
     print('Visualizing data:')

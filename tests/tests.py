@@ -35,7 +35,7 @@ def test_sampling_time():
         print(data.m3_vel)
         com.send_control_signal(control_signal)
 
-    control_signal = np.array([0, 0, 0])
+    com.stop_motors()
 
 
 def test_movement(control_signal):
@@ -55,6 +55,8 @@ def test_movement(control_signal):
         states = wheel2states(vel)
         print('States', states)
         com.send_control_signal(control_signal)
+
+    com.stop_motors()
 
 def test_frontal_movement():
 
@@ -81,11 +83,11 @@ def test_angular_movement():
 if __name__ == '__main__':
 
     test_sampling_time()
-
+    time.sleep(2)
     test_frontal_movement()
-
+    time.sleep(2)
     test_normal_movement()
-
+    time.sleep(2)
     test_angular_movement()
 
 

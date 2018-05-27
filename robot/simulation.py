@@ -25,6 +25,9 @@ class SimulationAdapter:
     def init_serial(self):
         print('Simulation Initialized!')
 
+    def stop_motors(self):
+        self.send_control_signal(np.array([0, 0, 0]))
+
 
 class LTISystem:
     pass

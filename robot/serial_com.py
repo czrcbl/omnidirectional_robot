@@ -165,6 +165,10 @@ class RobotCom:
         message = self.make_message(1, parameter)
         self.send_command(message)
 
+    def stop_motors(self):
+        control_signal = np.array([0, 0, 0])
+        self.send_control_signal(control_signal)
+
 
 if __name__ == '__main__':
 
