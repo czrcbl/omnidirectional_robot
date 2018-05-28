@@ -9,16 +9,20 @@ source activate $(realpath venv)
 ```bash
 git clone https://github.com/czrcbl/omnidirectional_robot
 ```
-2. Create a virtual enviroment
+2. Switch to project folder.
+```bash
+cd omnidirectional_robot
+```
+3. Create a virtual enviroment
 
 ```bash
 virtualenv venv
 ```
-3. Activate the environment
+4. Activate the environment
 ```bash
 source venv/bin/activate
 ```
-4. Install the requirements
+5. Install the requirements
 ```bash
 pip install -r requirements.txt
 ```
