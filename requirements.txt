@@ -15,11 +15,11 @@ mccabe==0.6.1
 numpy==1.14.3
 pylint==1.9.1
 pyparsing==2.2.0
+pyserial==3.4
 python-dateutil==2.7.3
 pytz==2018.4
 PyYAML==3.12
 scipy==1.1.0
-serial==0.0.66
 singledispatch==3.4.0.3
 six==1.11.0
 subprocess32==3.5.1

@@ -18,7 +18,7 @@ class RobotCom:
     def control_to_parameter(self, control_vector):
         """
         Converts the control signal input to a bytearray containing the PWM
-        values and the rotation direction that can be directly used on the
+        values and the rotation directions that can be directly used on the
         message.
         """
         parameter = bytearray(4)

@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..'))
 from robot.vis_data import get_recent, triple_plot, triple_plot2
 from scipy.io import loadmat
 import matplotlib.pyplot as plt
