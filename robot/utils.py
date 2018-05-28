@@ -69,6 +69,10 @@ class DataLogger:
 
     def close(self, suffix):
         i = self.iter
+
+        if not os.path.isdir(self.data_folder):
+            os.mkdir(self.data_folder)
+
         test_name = os.path.join(self.data_folder, now() + '_' + suffix)
         savemat(test_name, {'states': self.states_vec[:i],
                             'wheels_vel': self.wheels_vel_vec[:i],
