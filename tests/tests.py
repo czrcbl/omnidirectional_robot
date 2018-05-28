@@ -1,3 +1,6 @@
+import os
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), '..'))
 from robot.serial_com import RobotCom
 from robot.utils import wheel2states
 import numpy as np
@@ -14,7 +17,7 @@ def test_sampling_time():
         com = RobotCom()
         print('Port Openned:', com.serial.name)
     except Exception as e:
-        print(e)
+        raise e
 
     com.init_serial()
     control_signal = np.array([1, 1, 1])

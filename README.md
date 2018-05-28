@@ -14,9 +14,8 @@ git clone https://github.com/czrcbl/omnidirectional_robot
 cd omnidirectional_robot
 ```
 3. Create a virtual enviroment
-
 ```bash
-virtualenv venv
+virtualenv -p /usr/bin/python2 venv
 ```
 4. Activate the environment
 ```bash
