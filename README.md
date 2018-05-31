@@ -1,9 +1,5 @@
 # omnidirectional_robot
 
-conda activate $(realpath venv)
-
-source activate $(realpath venv)
-
 ## Instalation
 1. Clone the repository.
 ```bash
